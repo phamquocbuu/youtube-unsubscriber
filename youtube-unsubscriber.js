@@ -8,7 +8,10 @@ function myTimer() {
 
     if (i < els.length) {
 
-        els[i].querySelector(".ytd-subscribe-button-renderer").click();
+        try {
+            els[i].querySelector(".ytd-subscribe-button-renderer").click();
+        } catch (e) {
+        }
 
         setTimeout(function() {
 
@@ -22,7 +25,10 @@ function myTimer() {
 
                 if (i < els.length) {
 
-                    els[i].querySelector("[aria-label^='Unsubscribe from']").click();
+                    try {
+                        els[i].querySelector("[aria-label^='Unsubscribe from']").click();
+                    } catch (e) {
+                    }
 
                     setTimeout(function() {
 
@@ -30,7 +36,10 @@ function myTimer() {
                         if (confirmButton) {
                             var button = confirmButton.querySelector("yt-button-shape button");
                             if (button) {
-                                button.click();
+                                try {
+                                    button.click();
+                                } catch (e) {
+                                }
                             }
                         }
 
@@ -39,7 +48,10 @@ function myTimer() {
 
                     setTimeout(function() {
 
-                        els[i].parentNode.removeChild(els[i]);
+                        try {
+                            els[i].parentNode.removeChild(els[i]);
+                        } catch (e) {
+                        }
 
                     }, 2000);
 
@@ -57,7 +69,10 @@ function myTimer() {
 
         setTimeout(function() {
 
-            els[i].parentNode.removeChild(els[i]);
+            try {
+                els[i].parentNode.removeChild(els[i]);
+            } catch (e) {
+            }
 
         }, 2000);
 
