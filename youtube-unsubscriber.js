@@ -1,87 +1,38 @@
-var i = 0;
+let index = 0;
 
-var myVar = setInterval(myTimer, 3000);
+const unsubscribe = () => {
+  const gridContainer = document.getElementById("grid-container");
+  if (!gridContainer) {
+    console.log("Grid container not found.");
+    clearInterval(interval);
+    return;
+  }
 
-function myTimer() {
+  const channels = gridContainer.getElementsByClassName("ytd-expanded-shelf-contents-renderer");
 
-    var els = document.getElementById("grid-container").getElementsByClassName("ytd-expanded-shelf-contents-renderer");
+  if (index >= channels.length) {
+    console.log("Unsubscribe process completed.");
+    clearInterval(interval);
+    return;
+  }
 
-    if (i < els.length) {
+  try {
+    const unsubscribeButton = channels[index].querySelector("[aria-label^='Unsubscribe from']");
+    if (unsubscribeButton) {
+      unsubscribeButton.click();
 
-        try {
-            els[i].querySelector(".ytd-subscribe-button-renderer").click();
-        } catch (e) {
-        }
-
-        setTimeout(function() {
-
-            var i = 0;
-
-            var myVar = setInterval(myTimer, 3000);
-
-            function myTimer() {
-
-                var els = document.getElementById("grid-container").getElementsByClassName("ytd-expanded-shelf-contents-renderer");
-
-                if (i < els.length) {
-
-                    try {
-                        els[i].querySelector("[aria-label^='Unsubscribe from']").click();
-                    } catch (e) {
-                    }
-
-                    setTimeout(function() {
-
-                        var confirmButton = document.getElementById("confirm-button");
-                        if (confirmButton) {
-                            var button = confirmButton.querySelector("yt-button-shape button");
-                            if (button) {
-                                try {
-                                    button.click();
-                                } catch (e) {
-                                }
-                            }
-                        }
-
-
-                    }, 2000);
-
-                    setTimeout(function() {
-
-                        try {
-                            els[i].parentNode.removeChild(els[i]);
-                        } catch (e) {
-                        }
-
-                    }, 2000);
-
-                }
-
-                i++;
-
-                console.log(i + " Channels Unsubscribed\n");
-
-                console.log(els.length + " remaining");
-
-            }
-
-        }, 2000);
-
-        setTimeout(function() {
-
-            try {
-                els[i].parentNode.removeChild(els[i]);
-            } catch (e) {
-            }
-
-        }, 2000);
-
+      setTimeout(() => {
+        const confirmButton = document.querySelector("#confirm-button yt-button-shape button");
+        if (confirmButton) confirmButton.click();
+      }, 1000);
     }
 
-    i++;
+    console.log(`Unsubscribed from channel ${index + 1}`);
+  } catch (e) {
+    console.error(`Error unsubscribing channel ${index + 1}:`, e);
+  }
 
-    console.log(i + " Channels Unsubscribed\n");
+  index++;
+};
 
-    console.log(els.length + " remaining");
-
-}
+const interval = setInterval(unsubscribe, 2000);
