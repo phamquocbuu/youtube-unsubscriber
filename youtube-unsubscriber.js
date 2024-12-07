@@ -24,7 +24,7 @@ const unsubscribe = () => {
       setTimeout(() => {
         const confirmButton = document.querySelector("#confirm-button yt-button-shape button");
         if (confirmButton) confirmButton.click();
-      }, 1000);
+      }, 500);
     }
 
     console.log(`Unsubscribed from channel ${index + 1}`);
@@ -35,4 +35,4 @@ const unsubscribe = () => {
   index++;
 };
 
-const interval = setInterval(unsubscribe, 2000);
+const interval = setInterval(unsubscribe, 1000);
